@@ -7,18 +7,13 @@ on:
 
 jobs:
   call-release-workflow:
-    runs-on: ubuntu-latest
+    uses: gabrielzerio/devops/.github/workflows/Release.yml@main
+    with:
+      version: 'v1.0' # Você pode gerar essa versão dinamicamente
+        # 4. Passe os 'secrets' necessários (eles devem existir no repositório 'frontend')
+    secrets:
+      API_TOKEN: "1234"
+    
     # 1. Permissões necessárias para chamar outro workflow
     permissions:
       contents: read
-    
-    steps:
-      - name: Call Reusable Release Workflow
-        # 2. Use a sintaxe 'uses' para chamar o workflow do outro repositório
-        uses: gabrielzerio/devops/.github/workflows/Release.yml@main
-        # 3. Passe os 'inputs' definidos no workflow chamado
-        with:
-          version: 'v1.0' # Você pode gerar essa versão dinamicamente
-        # 4. Passe os 'secrets' necessários (eles devem existir no repositório 'frontend')
-        secrets:
-          API_TOKEN: "1234"
