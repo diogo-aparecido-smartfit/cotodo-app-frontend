@@ -3,17 +3,21 @@ name: Trigger DevOps Release
 on:
   push:
     branches:
-      - release  # Exemplo: dispara quando há um push na branch 'release'
+      - release # Exemplo: dispara quando há um push na branch 'release'
 
 jobs:
   call-release-workflow:
-    uses: gabrielzerio/devops/.github/workflows/Release.yml@main
-    with:
-      version: 'v1.0' # Você pode gerar essa versão dinamicamente
-        # 4. Passe os 'secrets' necessários (eles devem existir no repositório 'frontend')
-    secrets:
-      API_TOKEN: "1234"
-    
-    # 1. Permissões necessárias para chamar outro workflow
+    # 1. Permissões necessárias para o job
     permissions:
       contents: read
+    
+    # 2. A chamada ao workflow reutilizável é feita aqui
+    uses: gabrielzerio/devops/.github/workflows/Release.yml@main
+    
+    # 3. Parâmetros ('inputs') para o workflow reutilizável
+    with:
+      version: 'v1.0' # Você pode gerar essa versão dinamicamente
+      
+    # 4. 'Secrets' a serem passados para o workflow reutilizável
+    secrets:
+      API_TOKEN: "1234" # Lembre-se que o ideal é usar ${{ secrets.NOME_DO_SECRET }}
