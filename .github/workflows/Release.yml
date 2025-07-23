@@ -7,17 +7,10 @@ on:
 
 jobs:
   call-release-workflow:
-    # 1. Permissões necessárias para o job
     permissions:
       contents: read
-    
-    # 2. A chamada ao workflow reutilizável é feita aqui
     uses: gabrielzerio/devops/.github/workflows/Release.yml@main
-    
-    # 3. Parâmetros ('inputs') para o workflow reutilizável
     with:
-      version: 'v1.0' # Você pode gerar essa versão dinamicamente
-      
-    # 4. 'Secrets' a serem passados para o workflow reutilizável
+      version: 'v1.0'
     secrets:
-      API_TOKEN: "1234" # Lembre-se que o ideal é usar ${{ secrets.NOME_DO_SECRET }}
+      API_TOKEN: "1234"
